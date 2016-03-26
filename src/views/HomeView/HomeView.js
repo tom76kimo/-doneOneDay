@@ -7,14 +7,17 @@ import PermIdentity from 'material-ui/lib/svg-icons/action/perm-identity'
 
 import ReportBlock from 'components/ReportBlock'
 
+const facebookLoginComponent = (
+  <a href="/auth/facebook"><IconButton><PermIdentity color={Colors.white} /></IconButton></a>
+)
+
 export class HomeView extends React.Component {
   render () {
     return (
       <div>
         <AppBar
           title='讀經列車'
-          iconElementRight={<IconButton><PermIdentity color={Colors.white} /></IconButton>} />
-        <h1>Your New Project</h1>
+          iconElementRight={facebookLoginComponent} />
         <ReportBlock />
       </div>
     )
