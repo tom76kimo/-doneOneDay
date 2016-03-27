@@ -7,7 +7,7 @@ import CardText from 'material-ui/lib/card/card-text'
 import Check from 'material-ui/lib/svg-icons/navigation/check'
 import RaisedButton from 'material-ui/lib/raised-button'
 import Firebase from 'firebase'
-import CircularProgress from 'material-ui/lib/circular-progress'
+import LinearProgress from 'material-ui/lib/linear-progress'
 
 class ReportBlock extends React.Component {
   constructor (props) {
@@ -19,13 +19,13 @@ class ReportBlock extends React.Component {
   render () {
     let progressDescription = (
       <div>
-        <CircularProgress />
-        <span style={{marginLeft: '10px'}}>讀取資料中...</span>
+        <span style={{marginLeft: '10px', fontSize: '20px'}}>歡迎來到讀經列車，正在為您讀取資料中...</span>
       </div>
     )
     if (this.state.progress) {
       progressDescription = (
         <div style={{fontSize: '20px'}}>
+          <span style={{color: '#979797', fontSize: '18px', marginRight: 10}}>今日進度：</span>
           {this.state.progress.description}
         </div>
       )
@@ -35,9 +35,10 @@ class ReportBlock extends React.Component {
         <Card>
           <CardHeader
             title="小憲憲"
-            subtitle="status"
+            subtitle="Subtitle"
             avatar="http://lorempixel.com/100/100/nature/"
           />
+          <LinearProgress mode="indeterminate"/>
           <CardText>
             {progressDescription}
           </CardText>
