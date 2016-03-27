@@ -18,6 +18,7 @@ export class HomeView extends React.Component {
         <AppBar
           title='讀經列車'
           iconElementRight={facebookLoginComponent} />
+        <div style={{height: '20px', width: '100%'}}></div>
         <ReportBlock />
       </div>
     )
