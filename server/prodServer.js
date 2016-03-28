@@ -39,6 +39,10 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/',
                                       failureRedirect: '/login' }))
 
+app.get('/userData', (req, res) => {
+  res.send(200, req.user)
+})
+
 app.use('/', express.static(path.join(__dirname, '../dist/')))
 
 app.listen(3000, 'localhost', function (err) {
