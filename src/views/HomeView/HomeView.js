@@ -15,9 +15,15 @@ const facebookLoginComponent = (
 )
 
 export class HomeView extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      showMainBackgroundImage: false
+    }
+  }
   render () {
     return (
-      <div>
+      <div className={this.state.showMainBackgroundImage ? 'main-background' : null}>
         <AppBar
           title='讀經列車'
           iconElementRight={facebookLoginComponent} />
@@ -25,6 +31,17 @@ export class HomeView extends React.Component {
         <ReportBlock />
       </div>
     )
+  }
+
+  componentDidMount () {
+    const self = this
+    const img = document.createElement('img')
+    img.src = 'https://pixabay.com/static/uploads/photo/2015/01/08/15/48/bridge-593148_960_720.jpg'
+    img.onload = () => {
+      self.setState({
+        showMainBackgroundImage: true
+      })
+    }
   }
 }
 
