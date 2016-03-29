@@ -21,8 +21,22 @@
     box-sizing: inherit;
   }
 
+  .scroll-description {
+    height: 35px;
+    overflow: hidden;
+  }
+
+  .scroll-description-body {
+    height: 80px;
+    transition: all 1.5s;
+
+  }
   .fb-icon {
     font-size: 30px;
     color: white;
+  }
+  .fb-icon-black {
+    font-size: 60px;
+    color: #415D9E;
   }
 }
