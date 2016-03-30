@@ -58,6 +58,7 @@ class ReportBlock extends React.Component {
     if (this.state.progress) {
       progressDescription = (
         <div style={{fontSize: '20px'}}>
+          <p>{this.getTodayString()}</p>
           <span style={{color: '#979797', fontSize: '18px', marginRight: 10}}>今日進度：</span>
           {this.state.progress.description}
         </div>
@@ -197,6 +198,14 @@ class ReportBlock extends React.Component {
     this.setState({
       modalOpen: false
     })
+  }
+
+  getTodayString () {
+    const today = new Date()
+    const day = today.getDate()
+    const month = today.getMonth()
+    const year = today.getFullYear()
+    return `${year}年，${month}月，${day}日`
   }
 
   getTodayTimestamp () {
