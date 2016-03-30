@@ -23,7 +23,11 @@ export class HomeView extends React.Component {
   }
   render () {
     return (
-      <div className={this.state.showMainBackgroundImage ? 'main-background' : null}>
+      <div className="main-block">
+        <div
+          ref="mainBackground"
+          style={{opacity: 0}}
+          className={this.state.showMainBackgroundImage ? 'main-background' : null}></div>
         <AppBar
           title='讀經列車'
           iconElementRight={facebookLoginComponent} />
@@ -40,6 +44,10 @@ export class HomeView extends React.Component {
     img.onload = () => {
       self.setState({
         showMainBackgroundImage: true
+      }, () => {
+        setTimeout(() => {
+          self.refs.mainBackground.style.opacity = 1
+        }, 0)
       })
     }
   }
