@@ -103,7 +103,7 @@ class ReportBlock extends React.Component {
     const self = this
     firebaseRef.child('progress')
       .orderByChild('time')
-      .equalTo(1459008000000)
+      .equalTo(this.getTodayTimestamp())
       .on('child_added', (childSnapshot, prevChildKey) => {
         let progress = childSnapshot.val()
         if (progress) {
@@ -176,7 +176,7 @@ class ReportBlock extends React.Component {
       })
     } else {
       const firebaseRef = new Firebase('https://bible-train.firebaseio.com/')
-      firebaseRef.child('record').child(1459008000000).child(this.state.userData.id).set({
+      firebaseRef.child('record').child(this.getTodayTimestamp()).child(this.state.userData.id).set({
         userName: this.state.userData.name,
         createTime: Firebase.ServerValue.TIMESTAMP
       }, (err) => {
@@ -197,6 +197,14 @@ class ReportBlock extends React.Component {
     this.setState({
       modalOpen: false
     })
+  }
+
+  getTodayTimestamp () {
+    const today = new Date()
+    const day = today.getDate()
+    const month = today.getMonth()
+    const year = today.getFullYear()
+    return new Date(`${month + 1}/${day}/${year}`).getTime()
   }
 }
 
