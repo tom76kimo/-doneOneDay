@@ -27,7 +27,7 @@ export class HomeView extends React.Component {
         <div
           ref="mainBackground"
           style={{opacity: 0}}
-          className={this.state.showMainBackgroundImage ? 'main-background' : null}></div>
+          className={this.state.showMainBackgroundImage ? 'main-background' : 'main-background-not-ready'}></div>
         <AppBar
           title='讀經列車'
           iconElementRight={facebookLoginComponent} />
