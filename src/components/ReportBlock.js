@@ -205,7 +205,7 @@ class ReportBlock extends React.Component {
     const day = today.getDate()
     const month = today.getMonth()
     const year = today.getFullYear()
-    return `${year}年，${month}月，${day}日`
+    return `${year}年，${month + 1}月，${day}日`
   }
 
   getTodayTimestamp () {
