@@ -4,6 +4,7 @@ import passport from 'passport'
 import { Strategy as FacebookStrategy } from 'passport-facebook'
 import path from 'path'
 
+const secret = require('../secret.json')
 const app = express()
 
 app.use(session({
@@ -23,12 +24,15 @@ passport.deserializeUser(function (obj, done) {
 
 passport.use(new FacebookStrategy({
   clientID: '1290594384289716',
-  clientSecret: '',
-  callbackURL: 'http://bible-train.tom76kimo.info/auth/facebook/callback'
+  clientSecret: secret.facebookSecret,
+  callbackURL: 'http://bible-train.tom76kimo.info/auth/facebook/callback',
+  profileFields: ['photos', 'displayName']
 }, function (accessToken, refreshToken, profile, done) {
+  console.log(profile)
   const userData = {
     id: profile.id,
-    name: profile.displayName
+    name: profile.displayName,
+    picture: profile.photos ? profile.photos[0].value : null
   }
   done(null, userData)
 }))
@@ -40,7 +44,11 @@ app.get('/auth/facebook/callback',
                                       failureRedirect: '/login' }))
 
 app.get('/userData', (req, res) => {
-  res.send(200, req.user)
+  let userData = req.user
+  if (req.user && req.user.id === '10153693132403051') {
+    userData = Object.assign({}, userData, {admin: true})
+  }
+  res.send(200, userData)
 })
 
 app.use('/', express.static(path.join(__dirname, '../dist/')))
