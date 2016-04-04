@@ -22,14 +22,16 @@ export class HomeView extends React.Component {
         <Header />
         <div style={{height: '20px', width: '100%'}}></div>
         <ReportBlock />
-        <IconButton
-          touch
-          className="statistic-button"
-          style={{position: 'absolute'}}
-          tooltip="統計資料"
-          tooltipPosition="top-center" >
-          <Link to="/statistic"><i className="fb-icon fa fa-bar-chart"></i></Link>
-        </IconButton>
+        <Link to="/statistic">
+          <IconButton
+            touch
+            className="statistic-button"
+            style={{position: 'absolute'}}
+            tooltip="統計資料"
+            tooltipPosition="top-center" >
+            <i className="fb-icon fa fa-bar-chart"></i>
+          </IconButton>
+        </Link>
       </div>
     )
   }
