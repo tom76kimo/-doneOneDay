@@ -2,6 +2,8 @@
 import React from 'react'
 import ReportBlock from 'components/ReportBlock'
 import Header from 'components/Header'
+import IconButton from 'material-ui/lib/icon-button'
+import { Link } from 'react-router'
 
 export class HomeView extends React.Component {
   constructor (props) {
@@ -20,6 +22,14 @@ export class HomeView extends React.Component {
         <Header />
         <div style={{height: '20px', width: '100%'}}></div>
         <ReportBlock />
+        <IconButton
+          touch
+          className="statistic-button"
+          style={{position: 'absolute'}}
+          tooltip="統計資料"
+          tooltipPosition="top-center" >
+          <Link to="/statistic"><i className="fb-icon fa fa-bar-chart"></i></Link>
+        </IconButton>
       </div>
     )
   }

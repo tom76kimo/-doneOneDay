@@ -7,7 +7,10 @@ import { Link } from 'react-router'
 
 const facebookLoginComponent = (
   <a href="/auth/facebook">
-    <IconButton>
+    <IconButton
+      touch
+      tooltip="Facebook 登入"
+      tooltipPosition="bottom-left" >
       <div className="fb-icon">
         <i className="fa fa-facebook-official"></i>
       </div>
