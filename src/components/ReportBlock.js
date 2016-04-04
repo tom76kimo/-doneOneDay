@@ -13,6 +13,7 @@ import request from 'superagent'
 import Dialog from 'material-ui/lib/dialog'
 import Colors from 'material-ui/lib/styles/colors'
 import IconButton from 'material-ui/lib/icon-button'
+import TextField from 'material-ui/lib/text-field'
 
 const FACEBOOK_LOAD_FINISHED = 0
 const PROGRESS_LOAD_FINISHED = 0
@@ -21,6 +22,7 @@ class ReportBlock extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      reviews: null,
       progress: null,
       userData: null,
       modalOpen: false,
@@ -31,6 +33,8 @@ class ReportBlock extends React.Component {
     this.clickHasRead = this.clickHasRead.bind(this)
     this.hasReadFinished = this.hasReadFinished.bind(this)
     this.disabledConfirmButton = this.disabledConfirmButton.bind(this)
+    this.enterRecords = this.enterRecords.bind(this)
+    this.reviewsModalTextOnChang = this.reviewsModalTextOnChang.bind(this)
   }
   render () {
     let confirmButton
@@ -70,7 +74,7 @@ class ReportBlock extends React.Component {
         <CardHeader
           title={this.state.userData.name}
           subtitle="Subtitle"
-          avatar="http://lorempixel.com/100/100/nature/"
+          avatar={this.state.userData.picture || 'http://lorempixel.com/100/100/nature/'}
         />
       )
     }
@@ -176,22 +180,52 @@ class ReportBlock extends React.Component {
         }
       })
     } else {
-      const firebaseRef = new Firebase('https://bible-train.firebaseio.com/')
-      firebaseRef.child('record').child(this.getTodayTimestamp()).child(this.state.userData.id).set({
-        userName: this.state.userData.name,
-        createTime: Firebase.ServerValue.TIMESTAMP
-      }, (err) => {
-        if (!err) {
-          self.setState({
-            modalTitle: '記錄完畢！',
-            modalBody: (<CheckCircle color={Colors.green400} style={{width: 50, height: 50}}/>),
-            modalActions: [
-              <RaisedButton primary label="記錄完畢" onTouchTap={this.hasReadFinished}/>
-            ]
-          })
-        }
+      self.setState({
+        modalTitle: '輸入心得',
+        modalBody: self.reviewsModal(),
+        modalActions: [
+          <RaisedButton primary label="記錄完成" onTouchTap={this.enterRecords} />
+        ]
       })
     }
+  }
+
+  enterRecords () {
+    const self = this
+    const firebaseRef = new Firebase('https://bible-train.firebaseio.com/')
+    firebaseRef.child('record').child(this.getTodayTimestamp()).child(this.state.userData.id).set({
+      userName: this.state.userData.name,
+      createTime: Firebase.ServerValue.TIMESTAMP,
+      reviews: this.state.reviews
+    }, (err) => {
+      if (!err) {
+        self.setState({
+          modalTitle: '記錄完畢！',
+          modalBody: (<CheckCircle color={Colors.green400} style={{width: 50, height: 50}}/>),
+          modalActions: [
+            <RaisedButton primary label="記錄完畢" onTouchTap={this.hasReadFinished}/>
+          ]
+        })
+      }
+    })
+  }
+
+  reviewsModal () {
+    return (
+      <TextField
+        hintText="閱讀心得放在這～"
+        floatingLabelText="輸入閱讀心得："
+        multiLine
+        rows={2}
+        onChange={this.reviewsModalTextOnChang}
+      />
+    )
+  }
+
+  reviewsModalTextOnChang (e) {
+    this.setState({
+      reviews: e.target.value
+    })
   }
 
   hasReadFinished () {
