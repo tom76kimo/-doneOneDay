@@ -31,6 +31,7 @@ class StatisticView extends React.Component {
                   return (
                     <div key={id} style={{display: 'inline-block', marginRight: 20}}>
                       <Avatar size={60} src={`http://graph.facebook.com/${id}/picture`} />
+                      <div style={{textAlign: 'center'}}>{groupDataEntry[id].userName}</div>
                     </div>
                   )
                 })}
