@@ -61,9 +61,10 @@ class StatisticView extends React.Component {
   }
 
   getTodayRecords () {
+    const self = this
     return new Promise((resolve, reject) => {
       const firebaseRef = new Firebase('https://bible-train.firebaseio.com/')
-      firebaseRef.child('record').child(1459267200000).once('value', (childSnapshot) => {
+      firebaseRef.child('record').child(self.getTodayTimestamp()).once('value', (childSnapshot) => {
         const records = childSnapshot.val()
         resolve(records)
       })
@@ -90,6 +91,11 @@ class StatisticView extends React.Component {
           resultData[memberEntry.car] = {}
         }
         resultData[memberEntry.car][key] = records[key]
+      } else {
+        if (!resultData[0]) {
+          resultData[0] = {}
+        }
+        resultData[0][key] = records[key]
       }
     }
     return resultData
