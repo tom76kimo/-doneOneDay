@@ -40,8 +40,8 @@ class Header extends React.Component {
           open={this.state.leftNavOpen}
           onRequestChange={this.onLeftNavChange}
           >
-          <Link to="/dashboard"><MenuItem>Dashboard</MenuItem></Link>
-          <Link to="/"><MenuItem>Main Page</MenuItem></Link>
+          <Link to="/statistic"><MenuItem>統計資料</MenuItem></Link>
+          <Link to="/"><MenuItem>首頁</MenuItem></Link>
         </LeftNav>
       </AppBar>
     )
