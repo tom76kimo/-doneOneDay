@@ -5,6 +5,9 @@ import CardHeader from 'material-ui/lib/card/card-header'
 import CardText from 'material-ui/lib/card/card-text'
 import Firebase from 'firebase'
 import Avatar from 'material-ui/lib/avatar'
+import Badge from 'material-ui/lib/badge'
+import IconButton from 'material-ui/lib/icon-button'
+import FaceIcon from 'material-ui/lib/svg-icons/action/face'
 
 class StatisticView extends React.Component {
   constructor (props) {
@@ -16,15 +19,19 @@ class StatisticView extends React.Component {
   render () {
     let cards = []
     let groupDataEntry
+    let totalRecordCount = 0
+    let currentRecordCount
     if (this.state.groupData) {
       for (let key in this.state.groupData) {
         groupDataEntry = this.state.groupData[key]
+        currentRecordCount = Object.keys(groupDataEntry).length
+        totalRecordCount += currentRecordCount
         cards.push(
           <div key={key} style={{width: '90%', marginLeft: 'auto', marginRight: 'auto', marginTop: 20}}>
             <Card>
               <CardHeader
                 title={'第 ' + key + ' 車廂'}
-                subtitle={Object.keys(groupDataEntry).length + ' 人已讀完'}
+                subtitle={currentRecordCount + ' 人已讀完'}
               />
               <CardText>
                 {Object.keys(groupDataEntry).map((id) => {
@@ -47,6 +54,17 @@ class StatisticView extends React.Component {
         <Header />
         <div style={{height: 20}}></div>
         <span style={{fontSize: 20, marginLeft: '5%'}}>{this.getTodayString()}</span>
+        <span>
+          <Badge
+            badgeContent={totalRecordCount}
+            secondary
+            badgeStyle={{top: 20, right: 20}}
+          >
+            <IconButton tooltip="總共已讀人數">
+              <FaceIcon/>
+            </IconButton>
+          </Badge>
+        </span>
         {cards}
       </div>
     )
